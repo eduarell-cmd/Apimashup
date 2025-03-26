@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -13,12 +14,12 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 </head>
 
 <body>
@@ -53,20 +54,20 @@
             </div>
         </div>
         <ul class="main-menu mobile-menu">
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li><a href="./club.html">Club</a></li>
-            <li><a href="./schedule.html">Schedule</a></li>
-            <li><a href="./result.html">Results</a></li>
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Club</a></li>
+            <li><a href="#">Schedule</a></li>
+            <li><a href="#">Results</a></li>
             <li><a href="#">Sport</a></li>
             <li><a href="#">Pages</a>
                 <ul class="dropdown">
-                    <li><a href="./blog.html">Blog</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Blog Details</a></li>
                     <li><a href="#">Schedule</a></li>
                     <li><a href="#">Results</a></li>
                 </ul>
             </li>
-            <li><a href="./contact.html">Contact Us</a></li>
+            <li><a href="#">Contact Us</a></li>
         </ul>
         <div id="mobile-menu-wrap"></div>
     </div>
@@ -74,55 +75,32 @@
 
     <!-- Header Section Begin -->
     <header class="header-section">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="ht-info">
-                            <ul>
-                                <li>20:00 - May 19, 2019</li>
-                                <li><a href="#">Sign in</a></li>
-                                <li><a href="#">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="ht-links">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-vimeo"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div class="header__nav">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                            <a href="#"><img src="{% static 'img/logo.png' %}" alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-10">
                         <div class="nav-menu">
                             <ul class="main-menu">
-                                <li class="active"><a href="./index.html">Home</a></li>
-                                <li><a href="./club.html">Club</a></li>
-                                <li><a href="./schedule.html">Schedule</a></li>
-                                <li><a href="./result.html">Results</a></li>
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#">Club</a></li>
+                                <li><a href="#">Schedule</a></li>
+                                <li><a href="#">Results</a></li>
                                 <li><a href="#">Sport</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
-                                        <li><a href="./blog.html">Blog</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Blog Details</a></li>
                                         <li><a href="#">Schedule</a></li>
                                         <li><a href="#">Results</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="./contact.html">Contact Us</a></li>
+                                <li><a href="#">Contact Us</a></li>
                             </ul>
                             <div class="nm-right search-switch">
                                 <i class="fa fa-search"></i>
@@ -139,7 +117,7 @@
     <!-- Header End -->
 
     <!-- Hero Section Begin -->
-    <section class="hero-section set-bg" data-setbg="img/hero/hero-1.jpg">
+    <section class="hero-section set-bg" data-setbg="{% static 'img/hero/hero-1.jpg' %}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -175,7 +153,7 @@
     <!-- Trending News Section End -->
 
     <!-- Match Section Begin -->
-    <section class="match-section set-bg" data-setbg="img/match/match-bg.jpg">
+    <section class="match-section set-bg" data-setbg="{% static 'img/match/match-bg.jpg' %}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -186,7 +164,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="left-team">
-                                            <img src="img/match/tf-1.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-1.jpg' %}" alt="">
                                             <h6>Cambodia</h6>
                                         </td>
                                         <td class="mt-content">
@@ -195,7 +173,7 @@
                                             <div class="mc-op">15 September 2019</div>
                                         </td>
                                         <td class="right-team">
-                                            <img src="img/match/tf-2.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-2.jpg' %}" alt="">
                                             <h6>Qatar</h6>
                                         </td>
                                     </tr>
@@ -207,7 +185,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="left-team">
-                                            <img src="img/match/tf-3.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-3.jpg' %}" alt="">
                                             <h6>Australia</h6>
                                         </td>
                                         <td class="mt-content">
@@ -216,7 +194,7 @@
                                             <div class="mc-op">15 September 2019</div>
                                         </td>
                                         <td class="right-team">
-                                            <img src="img/match/tf-4.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-4.jpg' %}" alt="">
                                             <h6>Iraq</h6>
                                         </td>
                                     </tr>
@@ -228,7 +206,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="left-team">
-                                            <img src="img/match/tf-5.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-5.jpg' %}" alt="">
                                             <h6>Ucraina</h6>
                                         </td>
                                         <td class="mt-content">
@@ -237,7 +215,7 @@
                                             <div class="mc-op">15 September 2019</div>
                                         </td>
                                         <td class="right-team">
-                                            <img src="img/match/tf-6.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-6.jpg' %}" alt="">
                                             <h6>Jordan</h6>
                                         </td>
                                     </tr>
@@ -254,7 +232,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="left-team">
-                                            <img src="img/match/tf-1.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-1.jpg' %}" alt="">
                                             <h6>Darussalam</h6>
                                         </td>
                                         <td class="mt-content">
@@ -263,7 +241,7 @@
                                             <div class="mc-op">15 September 2019</div>
                                         </td>
                                         <td class="right-team">
-                                            <img src="img/match/tf-2.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-2.jpg' %}" alt="">
                                             <h6>Ucraina</h6>
                                         </td>
                                     </tr>
@@ -275,7 +253,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="left-team">
-                                            <img src="img/match/tf-3.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-3.jpg' %}" alt="">
                                             <h6>Japan</h6>
                                         </td>
                                         <td class="mt-content">
@@ -284,7 +262,7 @@
                                             <div class="mc-op">15 September 2019</div>
                                         </td>
                                         <td class="right-team">
-                                            <img src="img/match/tf-4.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-4.jpg' %}" alt="">
                                             <h6>Philippines</h6>
                                         </td>
                                     </tr>
@@ -296,7 +274,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="left-team">
-                                            <img src="img/match/tf-5.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-5.jpg' %}" alt="">
                                             <h6>Kyrgyz</h6>
                                         </td>
                                         <td class="mt-content">
@@ -305,7 +283,7 @@
                                             <div class="mc-op">15 September 2019</div>
                                         </td>
                                         <td class="right-team">
-                                            <img src="img/match/tf-6.jpg" alt="">
+                                            <img src="{% static 'img/match/tf-6.jpg' %}" alt="">
                                             <h6 class="mi-right">Pakistan</h6>
                                         </td>
                                     </tr>
@@ -331,7 +309,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-sm-6 p-0">
-                    <div class="soccer-item set-bg" data-setbg="img/soccer/soccer-1.jpg">
+                    <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-1.jpg' %}">
                         <div class="si-tag">Soccer</div>
                         <div class="si-text">
                             <h5><a href="#">Counting Your Chicken Before They Hatch</a></h5>
@@ -343,7 +321,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 p-0">
-                    <div class="soccer-item set-bg" data-setbg="img/soccer/soccer-2.jpg">
+                    <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-2.jpg' %}">
                         <div class="si-tag">Soccer</div>
                         <div class="si-text">
                             <h5><a href="#">Hypnotherapy For Motivation Getting The Drive Back</a></h5>
@@ -355,7 +333,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 p-0">
-                    <div class="soccer-item set-bg" data-setbg="img/soccer/soccer-3.jpg">
+                    <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-3.jpg' %}">
                         <div class="si-tag">Soccer</div>
                         <div class="si-text">
                             <h5><a href="#">Astronomy Binoculars A Great Alternative</a></h5>
@@ -367,7 +345,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6 p-0">
-                    <div class="soccer-item set-bg" data-setbg="img/soccer/soccer-4.jpg">
+                    <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-4.jpg' %}">
                         <div class="si-tag">Soccer</div>
                         <div class="si-text">
                             <h5><a href="#">Decorate For Less With Art Posters</a></h5>
@@ -400,7 +378,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="news-item left-news">
-                                <div class="ni-pic set-bg" data-setbg="img/news/latest-b.jpg">
+                                <div class="ni-pic set-bg" data-setbg="{% static 'img/news/latest-b.jpg' %}">
                                     <div class="ni-tag">Soccer</div>
                                 </div>
                                 <div class="ni-text">
@@ -418,7 +396,7 @@
                         <div class="col-md-6">
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-1.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-1.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">How To Quit Smoking Using Zyban</a></h5>
@@ -430,7 +408,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-2.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-2.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">Decorate For Less With Art Posters</a></h5>
@@ -442,7 +420,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-3.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-3.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">Home Business Advertising Ideas</a></h5>
@@ -454,7 +432,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-4.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-4.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">Lasik Doesn T Stop Your Eyes From Aging</a></h5>
@@ -487,7 +465,7 @@
                                 <tr>
                                     <td>1</td>
                                     <td class="team-name">
-                                        <img src="img/flag/flag-1.jpg" alt="">
+                                        <img src="{% static 'img/flag/flag-1.jpg' %}" alt="">
                                         <span>Afghanis</span>
                                     </td>
                                     <td>22</td>
@@ -498,7 +476,7 @@
                                 <tr>
                                     <td>2</td>
                                     <td class="team-name">
-                                        <img src="img/flag/flag-2.jpg" alt="">
+                                        <img src="{% static 'img/flag/flag-2.jpg' %}" alt="">
                                         <span>Australia</span>
                                     </td>
                                     <td>20</td>
@@ -509,7 +487,7 @@
                                 <tr>
                                     <td>3</td>
                                     <td class="team-name">
-                                        <img src="img/flag/flag-3.jpg" alt="">
+                                        <img src="{% static 'img/flag/flag-3.jpg' %}" alt="">
                                         <span>Qatar</span>
                                     </td>
                                     <td>18</td>
@@ -520,7 +498,7 @@
                                 <tr>
                                     <td>4</td>
                                     <td class="team-name">
-                                        <img src="img/flag/flag-4.jpg" alt="">
+                                        <img src="{% static 'img/flag/flag-4.jpg' %}" alt="">
                                         <span>Cambodia</span>
                                     </td>
                                     <td>17</td>
@@ -531,7 +509,7 @@
                                 <tr>
                                     <td>5</td>
                                     <td class="team-name">
-                                        <img src="img/flag/flag-5.jpg" alt="">
+                                        <img src="{% static 'img/flag/flag-5.jpg' %}" alt="">
                                         <span>Uzbekistan</span>
                                     </td>
                                     <td>17</td>
@@ -542,7 +520,7 @@
                                 <tr>
                                     <td>6</td>
                                     <td class="team-name">
-                                        <img src="img/flag/flag-6.jpg" alt="">
+                                        <img src="{% static 'img/flag/flag-6.jpg' %}" alt="">
                                         <span>Turkme</span>
                                     </td>
                                     <td>161</td>
@@ -553,7 +531,7 @@
                                 <tr>
                                     <td>7</td>
                                     <td class="team-name">
-                                        <img src="img/flag/flag-7.jpg" alt="">
+                                        <img src="{% static 'img/flag/flag-7.jpg' %}" alt="">
                                         <span>Sri Lanka</span>
                                     </td>
                                     <td>15</td>
@@ -564,7 +542,7 @@
                                 <tr>
                                     <td>8</td>
                                     <td class="team-name">
-                                        <img src="img/flag/flag-8.jpg" alt="">
+                                        <img src="{% static 'img/flag/flag-8.jpg' %}" alt="">
                                         <span>Myanmar</span>
                                     </td>
                                     <td>14</td>
@@ -595,52 +573,52 @@
             <div class="row">
                 <div class="video-slider owl-carousel">
                     <div class="col-lg-3">
-                        <div class="video-item set-bg" data-setbg="img/videos/video-1.jpg">
+                        <div class="video-item set-bg" data-setbg="{% static 'img/videos/video-1.jpg' %}">
                             <div class="vi-title">
                                 <h5>A World Of Infinite Opportunities</h5>
                             </div>
                             <a href="https://www.youtube.com/watch?v=dhYOPzcsbGM" class="play-btn video-popup"><img
-                                    src="img/videos/play.png" alt=""></a>
+                                    src="{% static 'img/videos/play.png' %}" alt=""></a>
                             <div class="vi-time">11:13</div>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="video-item set-bg" data-setbg="img/videos/video-2.jpg">
+                        <div class="video-item set-bg" data-setbg="{% static 'img/videos/video-2.jpg' %}">
                             <div class="vi-title">
                                 <h5>Video Games Playing With Imagination</h5>
                             </div>
                             <a href="https://www.youtube.com/watch?v=dhYOPzcsbGM" class="play-btn video-popup"><img
-                                    src="img/videos/play.png" alt=""></a>
+                                    src="{% static 'img/videos/play.png' %}" alt=""></a>
                             <div class="vi-time">11:13</div>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="video-item set-bg" data-setbg="img/videos/video-3.jpg">
+                        <div class="video-item set-bg" data-setbg="{% static 'img/videos/video-3.jpg' %}">
                             <div class="vi-title">
                                 <h5>Home Audio Recording For Everyone</h5>
                             </div>
                             <a href="https://www.youtube.com/watch?v=dhYOPzcsbGM" class="play-btn video-popup"><img
-                                    src="img/videos/play.png" alt=""></a>
+                                    src="{% static 'img/videos/play.png' %}" alt=""></a>
                             <div class="vi-time">11:13</div>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="video-item set-bg" data-setbg="img/videos/video-4.jpg">
+                        <div class="video-item set-bg" data-setbg="{% static 'img/videos/video-4.jpg' %}">
                             <div class="vi-title">
                                 <h5>What If They Let You Run The Hubble</h5>
                             </div>
                             <a href="https://www.youtube.com/watch?v=dhYOPzcsbGM" class="play-btn video-popup"><img
-                                    src="img/videos/play.png" alt=""></a>
+                                    src="{% static 'img/videos/play.png' %}" alt=""></a>
                             <div class="vi-time">11:13</div>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="video-item set-bg" data-setbg="img/videos/video-4.jpg">
+                        <div class="video-item set-bg" data-setbg="{% static 'img/videos/video-4.jpg' %}">
                             <div class="vi-title">
                                 <h5>What If They Let You Run The Hubble</h5>
                             </div>
                             <a href="https://www.youtube.com/watch?v=dhYOPzcsbGM" class="play-btn video-popup"><img
-                                    src="img/videos/play.png" alt=""></a>
+                                    src="{% static 'img/videos/play.png' %}" alt=""></a>
                             <div class="vi-time">11:13</div>
                         </div>
                     </div>
@@ -660,7 +638,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="news-item popular-item set-bg" data-setbg="img/news/popular-b.jpg">
+                            <div class="news-item popular-item set-bg" data-setbg="{% static 'img/news/popular-b.jpg' %}">
                                 <div class="ni-tag tenis">Tenis</div>
                                 <div class="ni-text">
                                     <h5><a href="#">England reach World Cup last 16 with hard-fought win over
@@ -673,7 +651,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-1.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-1.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">There’s a great history of the winner Sandia</a></h5>
@@ -685,7 +663,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-2.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-2.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">It’ll be a tough game and a physical game</a></h5>
@@ -697,7 +675,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-3.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-3.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">If we don’t score we can’t get frustrated</a></h5>
@@ -709,7 +687,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="news-item popular-item set-bg" data-setbg="img/news/popular-b.jpg">
+                            <div class="news-item popular-item set-bg" data-setbg="{% static 'img/news/popular-b.jpg' %}">
                                 <div class="ni-tag football">Football</div>
                                 <div class="ni-text">
                                     <h5><a href="#">We are playing history and Argentina at the World Cup, says Phil
@@ -722,7 +700,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-5.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-5.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">Le Havre does have a growing fan club</a></h5>
@@ -734,7 +712,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-6.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-6.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">It will be hard to break them down</a></h5>
@@ -746,7 +724,7 @@
                             </div>
                             <div class="news-item">
                                 <div class="ni-pic">
-                                    <img src="img/news/ln-7.jpg" alt="">
+                                    <img src="{% static 'img/news/ln-7.jpg' %}" alt="">
                                 </div>
                                 <div class="ni-text">
                                     <h5><a href="#">We’ve never seen them as organised </a></h5>
@@ -782,7 +760,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="vote-option set-bg" data-setbg="img/news/vote-bg.jpg">
+                    <div class="vote-option set-bg" data-setbg="{% static 'img/news/vote-bg.jpg' %}">
                         <div class="vo-text">
                             <h5>In your opinion, which country will win this year</h5>
                             <div class="vt-item">
@@ -810,13 +788,13 @@
     <!-- Popular News Section End -->
 
     <!-- Footer Section Begin -->
-    <footer class="footer-section set-bg" data-setbg="img/footer-bg.jpg">
+    <footer class="footer-section set-bg" data-setbg="{% static 'img/footer-bg.jpg' %}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="fs-logo">
                         <div class="logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                            <a href="#"><img src="{% static 'img/logo.png' %}" alt=""></a>
                         </div>
                         <ul>
                             <li><i class="fa fa-envelope"></i> Info.colorlib@gmail.com</li>
@@ -906,12 +884,12 @@
     <!-- Search model end -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 
 </html>
