@@ -271,60 +271,31 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <h3>Latest <span>News</span></h3>
+                        <h3>F1 <span>Drivers</span></h3>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="video-slider owl-carousel">
-                    <div class="col-lg-3 col-sm-6 p-0">
-                        <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-1.jpg' %}">
-                            <div class="si-tag">Soccer</div>
-                            <div class="si-text">
-                                <h5><a href="#">Counting Your Chicken Before They Hatch</a></h5>
-                                <ul>
-                                    <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                    <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {% if drivers %}
+                    {% for driver in drivers %}
                     <div class="col-lg-3">
                         <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-1.jpg' %}">
-                            <div class="si-tag">Soccer</div>
+                            <div class="si-tag">F1 Driver</div>
                             <div class="si-text">
-                                <h5><a href="#">Counting Your Chicken Before They Hatch</a></h5>
+                                <h5><a href="{{driver.url}}">{{driver.name}} {{driver.surname}}</a></h5>
                                 <ul>
-                                    <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                    <li><i class="fa fa-edit"></i> 3 Comment</li>
+                                    <li><i class="fa fa-calendar"></i> {{ driver.nationality }}</li>
+                                    <li><i class="fa fa-edit"></i> {{ driver.birthday }}</li>
+                                    <li><i class="fa fa-car"></i> {{ driver.teamId }}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-1.jpg' %}">
-                            <div class="si-tag">Soccer</div>
-                            <div class="si-text">
-                                <h5><a href="#">Counting Your Chicken Before They Hatch</a></h5>
-                                <ul>
-                                    <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                    <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-1.jpg' %}">
-                            <div class="si-tag">Soccer</div>
-                            <div class="si-text">
-                                <h5><a href="#">Counting Your Chicken Before They Hatch</a></h5>
-                                <ul>
-                                    <li><i class="fa fa-calendar"></i> May 19, 2019</li>
-                                    <li><i class="fa fa-edit"></i> 3 Comment</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
+                    {% else %}
+                        <p>No hay datos disponibles en este momento.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

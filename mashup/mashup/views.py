@@ -4,6 +4,6 @@ from django.conf import settings
 from .services import *
 
 def index(request):
-    
-    return render(request, "index.html")
+    drivers = Drivers()
+    return render(request, "index.html",{'drivers':drivers})
 
