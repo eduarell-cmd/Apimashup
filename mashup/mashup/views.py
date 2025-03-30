@@ -5,5 +5,14 @@ from .services import *
 
 def index(request):
     drivers = Drivers()
-    return render(request, "index.html",{'drivers':drivers})
+    partidos = Futbol()
+    news = Noticias()
+
+    context = {
+        'drivers': drivers,
+        'partidos': partidos,
+        'news': news
+    }
+    
+    return render(request, "index.html", context)
 

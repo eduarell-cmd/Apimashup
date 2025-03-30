@@ -21,6 +21,35 @@
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <style>
+        .match-section .ms-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .match-section .mc-table {
+            flex: 1;
+            min-height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .match-section .mc-table table {
+            width: 100%;
+            height: 100%;
+        }
+        .match-section .mc-table td {
+            vertical-align: middle;
+        }
+        .match-section .left-team img,
+        .match-section .right-team img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+    </style>
 </head>
 
 <body>
@@ -86,178 +115,71 @@
     </section>
     <!-- Hero Section End -->   
 
-    <!-- API Data Section Begin -->
-    <section class="api-data-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <h3>Datos <span>Dinámicos</span></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    {% if error %}
-                        <div class="alert alert-danger">
-                            {{ error }}
-                        </div>
-                    {% endif %}
-                    
-                    {% if data %}
-                        <div class="api-content">
-                            <!-- Aquí puedes personalizar cómo mostrar los datos según la estructura de tu API -->
-                            <pre>{{ data|pprint }}</pre>
-                        </div>
-                    {% else %}
-                        <div class="alert alert-info">
-                            No hay datos disponibles en este momento.
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- API Data Section End -->
+    
 
     <!-- Match Section Begin -->
     <section class="match-section set-bg" data-setbg="{% static 'img/match/match-bg.jpg' %}">
         <div class="container">
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h3>Next <span>Matches</span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-6">
                     <div class="ms-content">
-                        <h4>Next Match</h4>
+                        {% for partido in partidos|slice:":3" %}
                         <div class="mc-table">
                             <table>
                                 <tbody>
                                     <tr>
                                         <td class="left-team">
-                                            <img src="{% static 'img/match/tf-1.jpg' %}" alt="">
-                                            <h6>Cambodia</h6>
+                                            <img src="{{ partido.localImg }}" alt="">
+                                            <h6>{{ partido.local }}</h6>
                                         </td>
                                         <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>VS</h4>
-                                            <div class="mc-op">15 September 2019</div>
+                                            <div class="mc-op">{{ partido.local }} vs {{ partido.visit }}</div>
+                                            <h4>{{ partido.goleslocal }} : {{ partido.golesvisitante }}</h4>
+                                            <div class="mc-op">{{ partido.date }}</div>
                                         </td>
                                         <td class="right-team">
-                                            <img src="{% static 'img/match/tf-2.jpg' %}" alt="">
-                                            <h6>Qatar</h6>
+                                            <img src="{{ partido.visitImg }}" alt="">
+                                            <h6>{{ partido.visit }}</h6>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mc-table">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="left-team">
-                                            <img src="{% static 'img/match/tf-3.jpg' %}" alt="">
-                                            <h6>Australia</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>VS</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="{% static 'img/match/tf-4.jpg' %}" alt="">
-                                            <h6>Iraq</h6>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="mc-table">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="left-team">
-                                            <img src="{% static 'img/match/tf-5.jpg' %}" alt="">
-                                            <h6>Ucraina</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>VS</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="{% static 'img/match/tf-6.jpg' %}" alt="">
-                                            <h6>Jordan</h6>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="ms-content">
-                        <h4>Recent Results</h4>
+                        {% for partido in partidos|slice:"3:" %}
                         <div class="mc-table">
                             <table>
                                 <tbody>
                                     <tr>
                                         <td class="left-team">
-                                            <img src="{% static 'img/match/tf-1.jpg' %}" alt="">
-                                            <h6>Darussalam</h6>
+                                            <img src="{{ partido.localImg }}" alt="">
+                                            <h6>{{ partido.local }}</h6>
                                         </td>
                                         <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>1 : 2</h4>
-                                            <div class="mc-op">15 September 2019</div>
+                                            <div class="mc-op">{{ partido.local }} vs {{ partido.visit }}</div>
+                                            <h4>{{ partido.goleslocal }} : {{ partido.golesvisitante }}</h4>
+                                            <div class="mc-op">{{ partido.date }}</div>
                                         </td>
                                         <td class="right-team">
-                                            <img src="{% static 'img/match/tf-2.jpg' %}" alt="">
-                                            <h6>Ucraina</h6>
+                                            <img src="{{ partido.visitImg }}" alt="">
+                                            <h6>{{ partido.visit }}</h6>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mc-table">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="left-team">
-                                            <img src="{% static 'img/match/tf-3.jpg' %}" alt="">
-                                            <h6>Japan</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>1 : 2</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="{% static 'img/match/tf-4.jpg' %}" alt="">
-                                            <h6>Philippines</h6>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="mc-table">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="left-team">
-                                            <img src="{% static 'img/match/tf-5.jpg' %}" alt="">
-                                            <h6>Kyrgyz</h6>
-                                        </td>
-                                        <td class="mt-content">
-                                            <div class="mc-op">Ucraina vs England</div>
-                                            <h4>1 : 2</h4>
-                                            <div class="mc-op">15 September 2019</div>
-                                        </td>
-                                        <td class="right-team">
-                                            <img src="{% static 'img/match/tf-6.jpg' %}" alt="">
-                                            <h6 class="mi-right">Pakistan</h6>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
