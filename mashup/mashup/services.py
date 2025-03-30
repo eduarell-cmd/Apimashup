@@ -54,14 +54,10 @@ def Noticias():
     response = requests.get(url, json=payload)
     responseJson = response.json()
     news= []
-    for noticia in responseJson['noticias']:
+    for new in responseJson['noticias']:
         news.append({
-            'titulo': noticia['titulo'],
-            'nota': noticia['Nota'],
-            'img': noticia['Foto']
+            'titulo': new['titulo'],
+            'nota': new['Nota'],
+            'img': new['Foto']
         })
     return news
-
-    
-
-Noticias()
