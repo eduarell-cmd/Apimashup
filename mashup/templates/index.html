@@ -49,6 +49,67 @@
             height: 60px;
             object-fit: contain;
         }
+        .match-section .section-title h3 {
+            color: #ffffff;
+        }
+        .match-section .section-title span {
+            color: #ffffff;
+        }
+        /* Estilos para las tarjetas de conductores */
+        .soccer-item {
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .soccer-item:hover {
+            transform: translateY(-5px);
+        }
+        .si-pic {
+            position: relative;
+            overflow: hidden;
+        }
+        .si-text {
+            padding: 20px;
+        }
+        .si-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 15px;
+            background: #e53637;
+            color: #ffffff;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 1;
+        }
+        .si-text h5 {
+            margin-bottom: 15px;
+            background: #e53637;
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        .si-text h5 a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .si-text ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .si-text ul li {
+            margin-bottom: 10px;
+            color: #666666;
+        }
+        .si-text ul li i {
+            color: #e53637;
+            margin-right: 10px;
+        }
     </style>
 </head>
 
@@ -197,26 +258,55 @@
                 </div>
             </div>
             <div class="row">
-                <div class="video-slider owl-carousel">
-                    {% if drivers %}
-                    {% for driver in drivers %}
-                    <div class="col-lg-3">
-                        <div class="soccer-item set-bg" data-setbg="{% static 'img/soccer/soccer-1.jpg' %}">
-                            <div class="si-tag">F1 Driver</div>
-                            <div class="si-text">
-                                <h5><a href="{{driver.url}}">{{driver.name}} {{driver.surname}}</a></h5>
-                                <ul>
-                                    <li><i class="fa fa-calendar"></i> {{ driver.nationality }}</li>
-                                    <li><i class="fa fa-edit"></i> {{ driver.birthday }}</li>
-                                    <li><i class="fa fa-car"></i> {{ driver.teamId }}</li>
-                                </ul>
+                <div class="col-lg-12">
+                    <div class="video-slider owl-carousel">
+                        {% if drivers %}
+                        {% for driver in drivers %}
+                        <div class="item">
+                            <div class="soccer-item">
+                                <div class="si-tag">F1 Driver</div>
+                                <div class="si-pic">
+                                    {% if driver.image_url %}
+                                        <img 
+                                            src="{{ driver.image_url }}" 
+                                            alt="{{ driver.name }} {{ driver.surname }}" 
+                                            style="width: 100%; height: 300px; object-fit: contain; background-color: #f5f5f5;"
+                                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                                        >
+                                        <div class="no-image-container" style="width: 100%; height: 300px; background-color: #f5f5f5; display: none; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+                                            <div>
+                                                <i class="fa fa-user-circle" style="font-size: 64px; color: #e53637; margin-bottom: 15px; display: block;"></i>
+                                                <p style="color: #666666; margin: 0;">Imagen no disponible para</p>
+                                                <p style="color: #e53637; font-weight: bold; margin: 5px 0;">{{ driver.name }} {{ driver.surname }}</p>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="no-image-container" style="width: 100%; height: 300px; background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+                                            <div>
+                                                <i class="fa fa-user-circle" style="font-size: 64px; color: #e53637; margin-bottom: 15px; display: block;"></i>
+                                                <p style="color: #666666; margin: 0;">Imagen no disponible para</p>
+                                                <p style="color: #e53637; font-weight: bold; margin: 5px 0;">{{ driver.name }} {{ driver.surname }}</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="si-text">
+                                    <h5><a href="{{driver.url}}">{{driver.name}} {{driver.surname}}</a></h5>
+                                    <ul style="background: #474747; padding: 10px; border-radius: 5px;">
+                                        <li><i class="fa fa-flag"></i> {{ driver.nationality }}</li>
+                                        <li><i class="fa fa-calendar"></i> {{ driver.birthday }}</li>
+                                        <li><i class="fa fa-car"></i> Team: {{ driver.teamId }}</li>
+                                        <li><i class="fa fa-trophy"></i> Number: {{ driver.number }}</li>
+                                        <li><i class="fa fa-star"></i> Points: {{ driver.points }}</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {% endfor %}
-                    {% else %}
+                        {% endfor %}
+                        {% else %}
                         <p>No hay datos disponibles en este momento.</p>
-                    {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,7 +317,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                        <h3>Latest <span>News</span></h3>
+                        
+                        <div class="section-title">
+                            <h3>Current <span>News</span></h3>
+                        </div>
                     <div class="row">
                         {% if news %}
                         {% for new in news %}
@@ -289,6 +382,31 @@
     <script src="{% static 'js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $('.video-slider').owlCarousel({
+                items: 4,
+                loop: true,
+                margin: 20,
+                nav: true,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                responsive:{
+                    0:{
+                        items: 1
+                    },
+                    600:{
+                        items: 2
+                    },
+                    1000:{
+                        items: 4
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
