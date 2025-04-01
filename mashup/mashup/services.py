@@ -2,7 +2,16 @@ import requests
 import http.client
 import json
 from django.http import JsonResponse
+from django.core.cache import cache
+from functools import lru_cache
+import asyncio
+import aiohttp
+from datetime import datetime, timedelta
 
+# Cache duration in seconds (5 minutes)
+CACHE_DURATION = 300
+
+@lru_cache(maxsize=128)
 def get_driver_image(driver_name):
     # Diccionario de mapeo de nombres de corredores a URLs de imágenes
     driver_images = {
@@ -32,40 +41,30 @@ def get_driver_image(driver_name):
     # Si el piloto no está en el diccionario o su valor es None, retornamos None
     return driver_images.get(driver_name)
 
-def Drivers():
+async def fetch_drivers_data():
     url = "https://f1connectapi.vercel.app/api/current/drivers"
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                data = await response.json()
+                drivers_list = data.get('drivers', [])
+                for driver in drivers_list:
+                    driver['image_url'] = get_driver_image(f"{driver['name']} {driver['surname']}")
+                return drivers_list
+            return None
 
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        data = response.json()
-        drivers_list = data.get('drivers',[])
-        # Agregar la URL de la imagen a cada conductor
-
-        for driver in drivers_list:
-            driver['image_url'] = get_driver_image(f"{driver['name']} {driver['surname']}")
-        return drivers_list
-    else:
-        return None
-
-def Futbol():
+async def fetch_football_data():
     conn = http.client.HTTPSConnection("v3.football.api-sports.io")
-
     headers = {
         'x-rapidapi-host': "v3.football.api-sports.io",
         'x-rapidapi-key': "ef11f29081cb7e476852aa0a039679df"
-        }
-
+    }
     conn.request("GET", "/fixtures?league=39&season=2023", headers=headers)
-
     res = conn.getresponse()
-    data = res.read()
+    data = json.loads(res.read().decode())
     
-
-    i = 0
-    data = json.loads(data)
-    fixtures  = []
-    for fixture in data['response']:
+    fixtures = []
+    for fixture in data['response'][:6]:  # Limit to 6 fixtures directly
         fixtures.append({
             'local': fixture['teams']['home']['name'],
             'visit': fixture['teams']['away']['name'],
@@ -75,28 +74,64 @@ def Futbol():
             'goleslocal': fixture['goals']['home'],
             'golesvisitante': fixture['goals']['away']
         })
-        i += 1
-        if i == 6:
-            break
-  
-
     return fixtures
-def Noticias():
+
+async def fetch_news_data():
     url = 'https://magicloops.dev/api/loop/49bdee03-4f9e-4f3d-a146-79f6d8fbee82/run'
-    payload = {}
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    # Verificar si la respuesta tiene el formato esperado
+                    if isinstance(data, dict):
+                        noticias = data.get('noticias', [])
+                        if isinstance(noticias, list):
+                            return [{
+                                'titulo': new.get('titulo', 'Sin título'),
+                                'nota': new.get('Nota', 'Sin contenido'),
+                                'img': new.get('Foto', '')
+                            } for new in noticias[:8]]
+                    return []
+                return []
+    except Exception as e:
+        print(f"Error fetching news: {str(e)}")
+        return []
 
-    response = requests.get(url, json=payload)
-    responseJson = response.json()
-    news= []
-    i = 0
-    for new in responseJson['noticias']:
-        news.append({
-            'titulo': new['titulo'],
-            'nota': new['Nota'],
-            'img': new['Foto']
-        })
-        i += 1
-        if i == 8:
-            break
+def Drivers():
+    cache_key = 'drivers_data'
+    cached_data = cache.get(cache_key)
+    
+    if cached_data is None:
+        drivers_data = asyncio.run(fetch_drivers_data())
+        if drivers_data:
+            cache.set(cache_key, drivers_data, CACHE_DURATION)
+            return drivers_data
+    return cached_data
 
-    return news
+def Futbol():
+    cache_key = 'football_data'
+    cached_data = cache.get(cache_key)
+    
+    if cached_data is None:
+        fixtures = asyncio.run(fetch_football_data())
+        if fixtures:
+            cache.set(cache_key, fixtures, CACHE_DURATION)
+            return fixtures
+    return cached_data
+
+def Noticias():
+    cache_key = 'news_data'
+    try:
+        cached_data = cache.get(cache_key)
+        
+        if cached_data is None:
+            news = asyncio.run(fetch_news_data())
+            if news:
+                cache.set(cache_key, news, CACHE_DURATION)
+                return news
+        return cached_data or []
+    except Exception as e:
+        print(f"Error in Noticias function: {str(e)}")
+        return []
+
