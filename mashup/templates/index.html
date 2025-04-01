@@ -110,6 +110,60 @@
             color: #e53637;
             margin-right: 10px;
         }
+        /* Add new styles for news section */
+        .news-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .news-item-wrapper {
+            margin-bottom: 20px;
+        }
+        .news-item {
+            height: 100%;
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .news-item:hover {
+            transform: translateY(-5px);
+        }
+        .ni-pic {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .ni-text {
+            padding: 20px;
+        }
+        .ni-text h4 {
+            margin-bottom: 10px;
+        }
+        .ni-text h4 a {
+            color: #333333;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .ni-text p {
+            color: #666666;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        @media (max-width: 991px) {
+            .news-item-wrapper {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+        @media (max-width: 767px) {
+            .news-item-wrapper {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -127,13 +181,13 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="logo">
-                            <a><img src="{% static 'img/redline.jpg' %}" alt=""></a>
+                            <a href="{% url 'index' %}"><img src="{% static 'img/redline.jpg' %}" alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-10">
                         <div class="nav-menu">
                             <ul class="main-menu">
-                                <li class="active"><a href="#home">Home</a></li>
+                                <li class="active"><a href="{% url 'index'%}">Home</a></li>
                                 <li><a href="#matches">Matches & Results</a></li>
                                 <li><a href="#drivers">F1 Drivers</a></li>
                                 <li><a href="#noticiones">News</a></li>
@@ -175,7 +229,37 @@
     </section>
     <!-- Hero Section End -->   
 
-    
+    <!-- Search Results Section Begin -->
+    <section id="search-results-section" class="search-results-section" style="display: none; border-top: 3px solid #e53637; padding-top: 4px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h3>Search <span>Results</span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="search-results" class="search-results">
+                        <div class="results-section">
+                            <h4>Drivers</h4>
+                            <div id="drivers-results" class="row"></div>
+                        </div>
+                        <div class="results-section">
+                            <h4>Matches</h4>
+                            <div id="matches-results" class="row"></div>
+                        </div>
+                        <div class="results-section">
+                            <h4>News</h4>
+                            <div id="news-results" class="row"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Search Results Section End -->
 
     <!-- Match Section Begin -->
     <section id="matches" class="match-section set-bg" data-setbg="{% static 'img/match/match-bg.jpg' %}">
@@ -317,26 +401,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                        
-                        <div class="section-title">
-                            <h3>Current <span>News</span></h3>
-                        </div>
-                    <div class="row">
+                    <div class="section-title">
+                        <h3>Current <span>News</span></h3>
+                    </div>
+                    <div class="row g-4">
                         {% if news %}
                         {% for new in news %}
-                        <div class="col-md-3">
-                            <div class="news-item left-news">
-                                <div class="ni-pic set-bg" data-setbg="{{new.img}}">
+                        <div class="col-12 col-md-6 col-lg-3 mb-3">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-img-top set-bg" data-setbg="{{new.img}}" style="height: 200px; background-size: cover; background-position: center;">
                                 </div>
-                                <div class="ni-text">
-                                    <h4><a href="#">{{new.titulo}}</a></h4>
-                                    <p>{{new.nota}}</p>
+                                <div class="card-body">
+                                    <h4 class="card-title"><a href="#" class="text-decoration-none text-dark">{{new.titulo}}</a></h4>
+                                    <p class="card-text text-muted">{{new.nota}}</p>
                                 </div>
                             </div>
                         </div>
                         {% endfor %}
                         {% else %}
-                        <p>No hay noticias por ahora</p>
+                        <div class="col-12">
+                            <p class="text-center">No hay noticias por ahora</p>
+                        </div>
                         {% endif %}
                     </div>
                     </div>
@@ -368,7 +453,7 @@
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch"><i class="fa fa-close"></i></div>
-            <form class="search-model-form">
+            <form class="search-model-form" onsubmit="return false;">
                 <input type="text" id="search-input" placeholder="Search here.....">
             </form>
         </div>
@@ -403,6 +488,154 @@
                     1000:{
                         items: 4
                     }
+                }
+            });
+
+            // Search functionality
+            let searchTimeout;
+            $('#search-input').on('input keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const query = $(this).val().trim();
+                    if (query.length >= 2) {
+                        performSearch(query);
+                        // Close search modal
+                        $('.search-model').removeClass('active');
+                        $('.search-close-switch').trigger('click');
+                    }
+                }
+            });
+
+            $('#search-input').on('input', function() {
+                clearTimeout(searchTimeout);
+                const query = $(this).val().trim();
+                
+                if (query.length < 2) {
+                    $('#search-results-section').hide();
+                    return;
+                }
+
+                searchTimeout = setTimeout(() => {
+                    performSearch(query);
+                }, 300);
+            });
+
+            function performSearch(query) {
+                $.get('/search/', { q: query }, function(data) {
+                    const hasResults = data.drivers.length > 0 || data.matches.length > 0 || data.news.length > 0;
+                    
+                    if (hasResults) {
+                        $('#search-results-section').show();
+                        
+                        // Scroll to search results
+                        $('html, body').animate({
+                            scrollTop: $('#search-results-section').offset().top - 100
+                        }, 500);
+                        
+                        // Display drivers
+                        const driversHtml = data.drivers.map(driver => `
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-img-top" style="height: 200px; position: relative;">
+                                        <img src="${driver.image_url}" class="w-100 h-100" alt="${driver.name}" style="object-fit: contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="no-image-container" style="width: 100%; height: 100%; background-color: #f5f5f5; display: none; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+                                            <div>
+                                                <i class="fa fa-user-circle" style="font-size: 48px; color: #e53637; margin-bottom: 10px; display: block;"></i>
+                                                <p style="color: #666666; margin: 0;">Imagen no disponible para</p>
+                                                <p style="color: #e53637; font-weight: bold; margin: 5px 0;">${driver.name}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${driver.name}</h5>
+                                        <p class="card-text">${driver.nationality}</p>
+                                        <p class="card-text"><small class="text-muted">Team: ${driver.team}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                        $('#drivers-results').html(driversHtml || '<p>No drivers found</p>');
+
+                        // Display matches
+                        const matchesHtml = data.matches.map(match => `
+                            <div class="col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="text-center">
+                                                <div style="height: 50px; position: relative;">
+                                                    <img src="${match.localImg}" alt="${match.local}" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                    <div class="no-image-container" style="width: 100%; height: 100%; background-color: #f5f5f5; display: none; align-items: center; justify-content: center; text-align: center; padding: 5px;">
+                                                        <div>
+                                                            <i class="fa fa-flag" style="font-size: 24px; color: #e53637;"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="mb-0">${match.local}</p>
+                                            </div>
+                                            <div class="text-center">
+                                                <h4 class="mb-0">${match.score}</h4>
+                                                <small class="text-muted">${match.date}</small>
+                                            </div>
+                                            <div class="text-center">
+                                                <div style="height: 50px; position: relative;">
+                                                    <img src="${match.visitImg}" alt="${match.visit}" style="height: 100%; object-fit: contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                    <div class="no-image-container" style="width: 100%; height: 100%; background-color: #f5f5f5; display: none; align-items: center; justify-content: center; text-align: center; padding: 5px;">
+                                                        <div>
+                                                            <i class="fa fa-flag" style="font-size: 24px; color: #e53637;"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="mb-0">${match.visit}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                        $('#matches-results').html(matchesHtml || '<p>No matches found</p>');
+
+                        // Display news
+                        const newsHtml = data.news.map(news => `
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-img-top" style="height: 150px; position: relative;">
+                                        <img src="${news.image}" class="w-100 h-100" alt="${news.title}" style="object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="no-image-container" style="width: 100%; height: 100%; background-color: #f5f5f5; display: none; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+                                            <div>
+                                                <i class="fa fa-newspaper-o" style="font-size: 48px; color: #e53637; margin-bottom: 10px; display: block;"></i>
+                                                <p style="color: #666666; margin: 0;">Imagen no disponible para</p>
+                                                <p style="color: #e53637; font-weight: bold; margin: 5px 0;">${news.title}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${news.title}</h5>
+                                        <p class="card-text">${news.content}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                        $('#news-results').html(newsHtml || '<p>No news found</p>');
+                    } else {
+                        $('#search-results-section').show();
+                        // Scroll to search results
+                        $('html, body').animate({
+                            scrollTop: $('#search-results-section').offset().top - 100
+                        }, 500);
+                        
+                        // Show no results message
+                        $('#drivers-results').html('<div class="col-12 text-center"><p class="text-muted">No se encontraron conductores</p></div>');
+                        $('#matches-results').html('<div class="col-12 text-center"><p class="text-muted">No se encontraron partidos</p></div>');
+                        $('#news-results').html('<div class="col-12 text-center"><p class="text-muted">No se encontraron noticias</p></div>');
+                    }
+                });
+            }
+
+            // Close search results when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.search-model').length) {
+                    $('.search-model').removeClass('active');
                 }
             });
         });
