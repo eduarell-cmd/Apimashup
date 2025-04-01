@@ -57,6 +57,7 @@ def search(request):
                 })
     
     # Search in news
+  
     news_results = []
     if news:
         for new in news:

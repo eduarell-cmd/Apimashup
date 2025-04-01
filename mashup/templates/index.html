@@ -412,7 +412,7 @@
                                 <div class="card-img-top set-bg" data-setbg="{{new.img}}" style="height: 200px; background-size: cover; background-position: center;">
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title"><a href="#" class="text-decoration-none text-dark">{{new.titulo}}</a></h4>
+                                    <h4 class="card-title"><a class="text-decoration-none text-dark">{{new.titulo}}</a></h4>
                                     <p class="card-text text-muted">{{new.nota}}</p>
                                 </div>
                             </div>
@@ -424,7 +424,7 @@
                         </div>
                         {% endif %}
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
     </section>
@@ -554,7 +554,7 @@
                                 </div>
                             </div>
                         `).join('');
-                        $('#drivers-results').html(driversHtml || '<p>No drivers found</p>');
+                        $('#drivers-results').html(driversHtml || '<p>No drivers found</p>');A
 
                         // Display matches
                         const matchesHtml = data.matches.map(match => `
