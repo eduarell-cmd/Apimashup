@@ -60,8 +60,6 @@ def Futbol():
 
     res = conn.getresponse()
     data = res.read()
-    
-
     i = 0
     data = json.loads(data)
     fixtures  = []
@@ -81,6 +79,7 @@ def Futbol():
   
 
     return fixtures
+
 def Noticias():
     url = 'https://magicloops.dev/api/loop/49bdee03-4f9e-4f3d-a146-79f6d8fbee82/run'
     payload = {}
